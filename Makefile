@@ -19,3 +19,7 @@ down:
 .PHONY: logs
 logs:
 	$(DC) logs
+
+.PHONY: test
+logs:
+	pytest -v
