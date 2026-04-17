@@ -1,7 +1,7 @@
 import pytest
 
 @pytest.mark.anyio
-async def test_create_brands(test_client):
+async def test_create_brand(test_client):
     payload = {
         "name": "Test brand",
         "country": "Test country",
