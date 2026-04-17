@@ -25,3 +25,16 @@ async def test_client():
 async def created_brand_id(test_client: AsyncClient) -> str:
     response = await test_client.post("/brands", json={"name": "Temp", "country": "Temp"})
     return response.json()["id"]
+
+
+@pytest.fixture()
+async def created_model_id(test_client: AsyncClient, created_brand_id) -> str:
+    response = await test_client.post(
+        url="/models",
+        json={
+            "brand_id": f"{created_brand_id}",
+            "name": "Temp",
+            "type": "Sedan"
+        }
+    )
+    return response.json()["id"]
