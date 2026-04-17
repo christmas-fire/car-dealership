@@ -38,3 +38,25 @@ async def created_model_id(test_client: AsyncClient, created_brand_id) -> str:
         }
     )
     return response.json()["id"]
+
+
+@pytest.fixture()
+async def created_car_id(test_client: AsyncClient, created_model_id) -> str:
+    response = await test_client.post(
+        url="/cars",
+        json={
+            "model_id": f"{created_model_id}",
+            "year": 2016,
+            "generation": 3,
+            "color": "White",
+            "price": 1000000,
+            "mileage": 50000,
+            "transmission": "Manual",
+            "drive": "FWD",
+            "engine_cap": 1.6,
+            "engine_type": "Gasoline",
+            "engine_power": 115,
+            "description" : "Some test description"
+    }
+    )
+    return response.json()["id"]
