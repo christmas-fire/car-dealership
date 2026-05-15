@@ -11,4 +11,13 @@ class ModelNotFound(Exception):
 class CarNotFound(Exception):
     def __init__(self, message: str | None = None) -> None:
         self.message = message
-            
+
+
+class UserAlreadyExists(Exception):
+    def __init__(self, message: str | None = None) -> None:
+        self.message = message
+
+
+class InvalidCreds(Exception):
+    def __init__(self, message: str | None = None) -> None:
+        self.message = message
