@@ -7,7 +7,7 @@ from src.schemas.model import ModelSchema, ModelCreateSchema, ModelUpdateSchema,
 from src.services.model import ModelService
 from src.core.exeptions import ModelNotFound
 
-router = APIRouter(prefix="/models")
+router = APIRouter(prefix="/models", tags=["models"])
 
 @router.get("")
 def read_models(model_service: ModelService = Depends(get_model_service)) -> list[ModelSchema]:

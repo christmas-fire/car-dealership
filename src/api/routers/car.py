@@ -7,7 +7,7 @@ from src.schemas.car import CarSchema, CarReadSchema, CarCreateSchema, CarUpdate
 from src.services.car import CarService
 from src.core.exeptions import CarNotFound
 
-router = APIRouter(prefix="/cars")
+router = APIRouter(prefix="/cars", tags=["cars"])
 
 @router.get("")
 def read_cars(car_service: CarService = Depends(get_car_service)) -> list[CarSchema]:
