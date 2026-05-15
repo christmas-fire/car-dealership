@@ -2,22 +2,27 @@ from fastapi import APIRouter, status, Depends, HTTPException
 
 from loguru import logger
 
+from src.api.dependencies import get_current_user
+from src.schemas.user import UserSchema
 from src.api.dependencies import get_brand_service
 from src.schemas.brand import BrandSchema, BrandCreateSchema, BrandUpdateSchema
 from src.services.brand import BrandService
 from src.core.exeptions import BrandNotFound
 
-router = APIRouter(prefix="/brands")
+router = APIRouter(prefix="/brands", tags=["brands"])
 
 @router.get("")
-def read_brands(brand_service: BrandService = Depends(get_brand_service)) -> list[BrandSchema]:
+def read_brands(
+        brand_service: BrandService = Depends(get_brand_service)
+) -> list[BrandSchema]:
     return brand_service.list_brands()
 
 
 @router.post("", status_code=status.HTTP_201_CREATED)
 def create_brand(
     payload: BrandCreateSchema,
-    brand_service: BrandService = Depends(get_brand_service)
+    brand_service: BrandService = Depends(get_brand_service),
+    current_user: UserSchema = Depends(get_current_user)
 ) -> BrandSchema:
     return brand_service.create_brand(brand=payload)
 
@@ -32,7 +37,7 @@ def update_brand(
         return brand_service.update_brand(brand_id=brand_id, brand_update=payload)
     except BrandNotFound as e:
         logger.exception(e.message)
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=e.message)
 
 
 @router.delete("/{brand_id}", status_code=status.HTTP_204_NO_CONTENT)
