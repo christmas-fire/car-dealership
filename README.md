@@ -17,6 +17,9 @@ POSTGRES_PASSWORD=your_postgres_password
 POSTGRES_DB=your_postgres_db
 POSTGRES_HOST=your_postgres_host
 POSTGRES_PORT=your_postgres_port
+SECRET_KEY=your_secret_key
+ALGORITHM=your_algorithm
+ACCESS_TOKEN_EXPIRE_MINUTES=your_ttl
 ```
 
 ## Run with Docker
